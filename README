@@ -1,0 +1,13 @@
+A talk planned for the 2015 Swiss perl workshop and YAPC::EU 2015
+
+To view the talk slides you will need to install the module App::revealup
+
+Then run:
+
+revealup server presentation.md \
+	--port 5000 \
+	--transition none \
+	--width 960 \
+	--height 800
+
+Slides are then available at http://localhost:5000

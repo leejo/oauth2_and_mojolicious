@@ -1,0 +1,14 @@
+A short talk to demonstrate OAuth2 support with Mojolicious, showing
+available modules/plugins to make this a bit easier. Broken up in to
+four parts:
+
+1) A quick explanation of OAuth2 - is that even possible? I guess we
+will find out...
+
+2) Client side implementation - Mojolicious::Plugin::OAuth2
+
+3) Server side implementation - Mojolicious::Plugin::OAuth2::Server
+
+4) Q&A
+
+Familiarity with Mojolicious is and advantage, but is not required
