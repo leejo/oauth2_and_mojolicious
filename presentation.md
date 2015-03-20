@@ -47,11 +47,85 @@ However, a recap...
 [Mojolicious::Plugin::OAuth2](https://metacpan.org/release/Mojolicious-Plugin-OAuth2)
 
 ---
+### Client Implementation
+
+```perl
+#!perl
+
+use Mojolicious::Lite;
+
+plugin 'OAuth2', {
+  fix_get_token => 1,
+  facebook => {
+     key    => $ENV{FACEBOOK_APP_KEY},
+     secret => $ENV{FACEBOOK_APP_SECRET},
+  },
+};
+
+get '/' => sub { shift->render( 'index' ) };
+
+get '/auth' => sub {
+  my $self = shift;
+  if ( my $error = $self->param( 'error' ) ) {
+    return $self->render(
+      text => "Call to facebook returned: $error"
+    );
+  } else {
+    $self->delay(
+      sub {
+        my $delay = shift;
+        $self->oauth2->get_token( facebook => $delay->begin )
+      },
+      sub {
+        my( $delay,$error,$data ) = @_;
+        return $self->render( error => $error ) if ! $data->{access_token};
+        return $self->render( json => $data );
+      },
+    );
+  }
+};
+
+app->start;
+
+# vim: ts=2:sw=2:et
+
+__DATA__
+@@ layouts/default.html.ep
+<!doctype html><html>
+  <head><title>TrendyNewService</title></head>
+  <body><h3>Welcome to TrendyNewService</h3><%== content %></body>
+</html>
+
+@@ index.html.ep
+% layout 'default';
+<a href="/auth">Connect to Facebook</a>
+```
+---
+### Client Implementation
+```
+FACEBOOK_APP_KEY=foo \
+FACEBOOK_APP_SECRET=bar \
+perl ~/bin/morbo -l "https://*:3000" bin/oauth2_example.pl
+```
+
+[Let's try it](https://localhost:3000)
+
+---
+### Do something with the access token:
+
+```
+curl -XGET 'https://graph.facebook.com/me?access_token=$token' | json_pp
+```
+
+The token should be encrypted when storing, and never revealed outside of your app (that __includes__ to the associated user).
+
+---
 ## Server Implementation
 
 [Mojolicious::Plugin::OAuth2::Server](https://metacpan.org/release/Mojolicious-Plugin-OAuth2-Server)
 
 ---
+### Server Implementation
 * simple example
 * but it's not that simple...
 * great for testing / emulation
