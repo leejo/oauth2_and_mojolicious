@@ -105,10 +105,10 @@ __DATA__
 ```
 FACEBOOK_APP_KEY=foo \
 FACEBOOK_APP_SECRET=bar \
-perl ~/bin/morbo -l "https://*:3000" bin/oauth2_example.pl
+perl ~/bin/morbo -l "https://*:3001" bin/oauth2_example.pl
 ```
 
-[Let's try it](https://localhost:3000)
+[Let's try it](https://localhost:3001)
 
 ---
 ### Do something with the access token:
@@ -120,27 +120,114 @@ curl -XGET 'https://graph.facebook.com/me?access_token=$token' | json_pp
 The token should be encrypted when storing, and never revealed outside of your app (that __includes__ to the associated user).
 
 ---
+It's that simple. If you're connecting to a provider that the plugin doesn't know about<sup>*</sup> then provide a little more config:
+
+```perl
+plugin "OAuth2" => {
+  custom_provider => {
+    key           => "APP_ID",
+    secret        => "SECRET_KEY",
+    authorize_url => "https://provider.example.com/auth",
+    token_url     => "https://provider.example.com/token",
+  },
+};
+```
+
+<sup>*</sup> dailymotion / eventbrite / facebook / github / google
+
+---
 ## Server Implementation
 
 [Mojolicious::Plugin::OAuth2::Server](https://metacpan.org/release/Mojolicious-Plugin-OAuth2-Server)
 
 ---
 ### Server Implementation
-* simple example
-* but it's not that simple...
-* great for testing / emulation
+
+```perl
+#!perl
+
+use Mojolicious::Lite;
+use Mojo::JSON;
+
+plugin 'OAuth2::Server' => {
+  clients => {
+    some_app_key => {
+      client_secret => 'boo',
+      scopes => {
+        "public_profile" => 1,
+      },
+    },
+  },
+};
+
+app->start;
+```
 
 ---
-* in reality
+### It can't be that simple [can it?](https://localhost:3002)
 
 ---
-## An example using those plugins
+### Of course, you need some routes:
 
-* client plugin speaking to the server plugin
-* command line
+```perl
+any '/me' => sub {
+  my ( $c ) = @_;
+
+  return $c->render( status => 401, json => {} )
+   if ! $c->oauth;
+
+  return $c->render( json => ... );
+};
+
+any '/user' => sub {
+  my ( $c ) = @_;
+
+  return $c->render( status => 401, json => {} )
+    if ! $c->oauth( 'public_profile' );
+
+  return $c->render( json => ... );
+};
+
+```
 
 ---
-There are other modules for doing this on CPAN:
+### Calling /me with access token:
+
+```
+curl -k -v -XGET -H'Authorization: Bearer $token' 'https://127.0.0.1:3000/me' | json_pp
+```
+
+---
+### But of course it's not *that* simple
+
+* No persistence
+* No multi-proc
+* But great for prototyping / emulation
+
+---
+### In reality you must add some methods
+
+* login_resource_owner
+* confirm_by_resource_owner
+* verify_client
+* store_auth_code
+* verify_auth_code
+* store_access_token
+* verify_access_token
+
+<br />
+About 200 lines of code total (with error handling, logging, etc). A few examples are included in the dist's [examples/](https://metacpan.org/source/LEEJO/Mojolicious-Plugin-OAuth2-Server-0.11/examples) dir
+
+---
+### There are a few more config options
+
+* authorize_route - defaults to GET /oauth/authorize
+* access_token_route - defaults to POST /oauth/access_token
+* auth_code_ttl - defaults to 600s
+* access_token_ttl - defaults to 3600s
+
+---
+### There are other modules on CPAN:
 
 * [OAuth::Lite2](https://metacpan.org/release/OAuth-Lite2) - Client / Server
 * [Net::OAuth2](https://metacpan.org/release/Net-OAuth2) - Client / Server
