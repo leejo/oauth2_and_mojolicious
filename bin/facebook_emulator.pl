@@ -4,6 +4,7 @@ use Mojolicious::Lite;
 use Mojo::JSON;
 
 plugin 'OAuth2::Server' => {
+  #jwt_secret => "blah de blah",
   clients => {
     some_app_key => {
       client_secret => 'boo',

@@ -205,6 +205,14 @@ curl -k -v -XGET -H'Authorization: Bearer $token' 'https://127.0.0.1:3000/me' | 
 * But great for prototyping / emulation
 
 ---
+### But of course it's not *that* simple
+
+* No persistence
+* No multi-proc
+* But great for prototyping / emulation
+* And we can use JWTs to get persistence / multi-proc
+
+---
 ### In reality you must add some methods
 
 * login_resource_owner
@@ -221,6 +229,7 @@ About 200 lines of code total (with error handling, logging, etc). A few example
 ---
 ### There are a few more config options
 
+* jwt_secret - to return JWTs for tokens
 * authorize_route - defaults to GET /oauth/authorize
 * access_token_route - defaults to POST /oauth/access_token
 * auth_code_ttl - defaults to 600s
