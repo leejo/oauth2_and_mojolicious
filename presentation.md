@@ -1,8 +1,13 @@
-OAuth2 and Mojolicious
+### OAuth2 and Mojolicious
 
-Lee Johnson ([leejo.github.io](http://leejo.github.io))
+Lee Johnson
 
-Swiss Perl Workshop August 2015
+Swiss Perl Workshop / YAPC::EU 2015
+
+---
+![me](/img/card.jpg)
+
+[leejo.github.io/code](https://leejo.github.io/code)
 
 ---
 ## [OAuth 2.0](https://tools.ietf.org/html/rfc6749)
@@ -210,7 +215,7 @@ curl -k -v -XGET -H'Authorization: Bearer $token' 'https://127.0.0.1:3000/me' | 
 * No persistence
 * No multi-proc
 * But great for prototyping / emulation
-* And we can use JWTs to get persistence / multi-proc
+* JWTs to get persistence / multi-proc
 
 ---
 ### In reality you must add some methods
@@ -219,12 +224,12 @@ curl -k -v -XGET -H'Authorization: Bearer $token' 'https://127.0.0.1:3000/me' | 
 * confirm_by_resource_owner
 * verify_client
 * store_auth_code
-* verify_auth_code
+* verify_auth_code*
 * store_access_token
-* verify_access_token
+* verify_access_token*
 
 <br />
-About 200 lines of code total (with error handling, logging, etc). A few examples are included in the dist's [examples/](https://metacpan.org/source/LEEJO/Mojolicious-Plugin-OAuth2-Server-0.11/examples) dir
+About 200 lines of code total (with error handling, logging, etc). A few examples are included in the dist's [examples/](https://metacpan.org/source/LEEJO/Mojolicious-Plugin-OAuth2-Server-0.22/examples) dir
 
 ---
 ### There are a few more config options
