@@ -12,6 +12,8 @@ Swiss Perl Workshop / YAPC::EU 2015
 ---
 ## [OAuth 2.0](https://tools.ietf.org/html/rfc6749)
 
+[Mailing List](https://www.ietf.org/mail-archive/web/oauth/current/maillist.html)
+
 ---
 Not really going to talk about OAuth 2.0 fundamentals here
 
@@ -249,7 +251,6 @@ About 200 lines of code total (with error handling, logging, etc). A few example
 * [CatalystX::OAuth2](https://metacpan.org/release/CatalystX-OAuth2) - Client
 * [CatalystX::OAuth2::Provider](https://metacpan.org/release/CatalystX-OAuth2-Provider) - Server
 * [LWP::Authen::OAuth2](https://metacpan.org/pod/LWP::Authen::OAuth2) - Client
-
 
 ---
 ## Questions?
