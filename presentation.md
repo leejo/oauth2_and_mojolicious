@@ -5,7 +5,7 @@ Lee Johnson
 Swiss Perl Workshop / YAPC::EU 2015
 
 ---
-![me](/img/card.jpg)
+![me](img/card.jpg)
 
 [leejo.github.io/code](https://leejo.github.io/code)
 
