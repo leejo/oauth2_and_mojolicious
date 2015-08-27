@@ -54,4 +54,4 @@ __DATA__
 
 @@ index.html.ep
 % layout 'default';
-<a href="/auth">Connect to Facebook</a>
+<a href="/auth">Connect to "Facebook"</a>

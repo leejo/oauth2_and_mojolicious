@@ -52,7 +52,7 @@ any '/user' => sub {
 
 get '/' => sub {
   my ( $c ) = @_;
-  $c->render( text => "Welcome to Facebook" );
+  $c->render( text => "Facebook Emulator" );
 };
 
 app->start;

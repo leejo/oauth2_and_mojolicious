@@ -17,7 +17,7 @@ Swiss Perl Workshop / YAPC::EU 2015
 ---
 Not really going to talk about OAuth 2.0 fundamentals here
 
-Such as [how](https://tools.ietf.org/html/rfc6749#section-4.1) it works, [why](http://oauth2.thephpleague.com/authorization-server/which-grant/) you would use it, [or](https://tools.ietf.org/html/rfc6819) [its](https://vimeo.com/52882780) [potential](http://hueniverse.com/2012/07/26/oauth-2-0-and-the-road-to-hell/) [problems](http://hueniverse.com/2010/09/29/oauth-bearer-tokens-are-a-terrible-idea/) [.](https://news.ycombinator.com/item?id=4294959)
+Such as [how](https://tools.ietf.org/html/rfc6749#section-4.1) it works, [why](http://oauth2.thephpleague.com/authorization-server/which-grant/) you would use it, [or](https://tools.ietf.org/html/rfc6819) [its](https://vimeo.com/52882780) [many](http://hueniverse.com/2012/07/26/oauth-2-0-and-the-road-to-hell/) [documented](http://hueniverse.com/2010/09/29/oauth-bearer-tokens-are-a-terrible-idea/) [problems](https://news.ycombinator.com/item?id=4294959).
 
 However, a recap...
 
