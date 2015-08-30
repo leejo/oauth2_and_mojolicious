@@ -209,14 +209,14 @@ curl -k -v -XGET -H'Authorization: Bearer $token' 'https://127.0.0.1:3000/me' | 
 
 * No persistence
 * No multi-proc
-* But great for prototyping / emulation
+* But great for prototyping / emulation / testing
 
 ---
 ### But of course it's not *that* simple
 
 * No persistence
 * No multi-proc
-* But great for prototyping / emulation
+* But great for prototyping / emulation / testing
 * JWTs to get persistence / multi-proc
 
 ---
@@ -232,6 +232,31 @@ curl -k -v -XGET -H'Authorization: Bearer $token' 'https://127.0.0.1:3000/me' | 
 
 <br />
 About 200 lines of code total (with error handling, logging, etc). A few examples are included in the dist's [examples/](https://metacpan.org/source/LEEJO/Mojolicious-Plugin-OAuth2-Server-0.22/examples) dir
+
+---
+### verify_access_token
+
+	plugin 'OAuth2::Server' => {
+
+		verify_access_token_sub => sub {
+
+			my ( $c,$access_token,$scopes_ref,$is_a_refresh_token ) = @_;
+
+			# do some verification on access/refresh token and scopes
+			...
+
+			# if bad
+			return ( 0,'invalid_grant' );
+
+			# if good
+			return {
+				user_id   => $foo,
+				client_id => $bar,
+				...
+			};
+		}
+	}
+
 
 ---
 ### There are a few more config options
