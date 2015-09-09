@@ -62,7 +62,6 @@ However, a recap...
 use Mojolicious::Lite;
 
 plugin 'OAuth2', {
-  fix_get_token => 1,
   facebook => {
      key    => $ENV{FACEBOOK_APP_KEY},
      secret => $ENV{FACEBOOK_APP_SECRET},
